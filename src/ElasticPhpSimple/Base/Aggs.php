@@ -57,6 +57,7 @@ class Aggs{
         if($type == Type::EBUCKETS){
             $ret = $this->params;
         }elseif($type == Type::EMERTICS){
+            reset($this->params);
             $_d = each($this->params); 
             $ret[] = $_d['key'];
             $ret[] = $_d['value'];
