@@ -32,44 +32,49 @@ class Model{
         return $this->_builder->select($field);
     }
     
-    public function term($field ,$value){
-        return $this->condition($field ,$value ,__FUNCTION__);
+    public function term($field ,$value, $as=null){
+        return $this->condition($field ,$value ,__FUNCTION__, $as);
     }
-    public function notTerm($field ,$value){
-        return $this->condition($field ,$value ,__FUNCTION__);
+    public function notTerm($field ,$value, $as=null){
+        return $this->condition($field ,$value ,__FUNCTION__, $as);
     }
-    public function match($field ,$value){
-        return $this->condition($field ,$value ,__FUNCTION__);
+    public function match($field ,$value, $as=null){
+        return $this->condition($field ,$value ,__FUNCTION__, $as);
     }
-    public function notMatch($field ,$value){
-        return $this->condition($field ,$value ,__FUNCTION__);
+    public function notMatch($field ,$value, $as=null){
+        return $this->condition($field ,$value ,__FUNCTION__, $as);
     }
-    public function in($field ,$value){
-        return $this->condition($field ,$value ,__FUNCTION__);
+    public function in($field ,$value, $as=null){
+        return $this->condition($field ,$value ,__FUNCTION__, $as);
     }
-    public function notIn($field ,$value){
-        return $this->condition($field ,$value ,__FUNCTION__);
+    public function notIn($field ,$value, $as=null){
+        return $this->condition($field ,$value ,__FUNCTION__, $as);
     }
-    public function like($field ,$value){
-        return $this->condition($field ,$value ,__FUNCTION__);
+    public function like($field ,$value, $as=null){
+        return $this->condition($field ,$value ,__FUNCTION__, $as);
     }
-    public function notLike($field ,$value){
-        return $this->condition($field ,$value ,__FUNCTION__);
+    public function notLike($field ,$value, $as=null){
+        return $this->condition($field ,$value ,__FUNCTION__, $as);
     }
-    public function range($field ,$value){
-        return $this->condition($field ,$value ,__FUNCTION__);
+    public function range($field ,$value, $as=null){
+        return $this->condition($field ,$value ,__FUNCTION__, $as);
     }
-    public function missing($field){
-        return $this->condition($field ,"" ,__FUNCTION__);
+    public function missing($field,$as=null){
+        return $this->condition($field ,"" ,__FUNCTION__, $as);
     }
-    public function notMissing($field){
-        return $this->condition($field ,"" ,__FUNCTION__);
+    public function notMissing($field, $as=null){
+        return $this->condition($field ,"" ,__FUNCTION__, $as);
     }
-    public function condition($field ,$value ,$func){
-        $this->$field = [[$field ,$value ,$func]];
-        $index = $this->_filedIndex($field);
+    public function condition($field ,$value ,$func, $fieldAs=null){
+        $_field = $field;
+        if(!is_null($fieldAs)){
+           $_field = $fieldAs;  
+        }
+
+        $this->$_field = [[$field ,$value ,$func]];
+        $index = $this->_filedIndex($_field);
         //push
-        $this->$index = array_push($this->_conditions ,'$'.$field);
+        $this->$index = array_push($this->_conditions ,'$'.$_field);
         //index
         $this->_prev_index = --$this->$index;
         return $this; 

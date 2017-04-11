@@ -51,8 +51,14 @@ class Builder{
     public function offset($from=0,$size=10){
         $this->from = $from;
         $this->size = $size;
-        if( ($this->from + $this->size) >= self::MaxLimit){
-            $this->from = self::MaxLimit - $size;     
+        if($this->from < 0 || $this->size < 0){
+            throw new \Exceptions('offset from and size must be > 0');
+        }
+        if($this->from > self::MaxLimit){
+            $this->from = self::MaxLimit; 
+            $this->size = 0;
+        }else if( ($this->from + $this->size) > self::MaxLimit){
+            $this->size = self::MaxLimit - $this->from;
         }
         return $this;
     }
@@ -241,6 +247,7 @@ class Builder{
         }
         //process buckets
         if(!empty($this->buckets)){
+            reset($this->buckets);
             if(!empty($this->order)){
                 foreach($this->buckets as $key=>$bucket){
                     if(isset($this->order[$bucket->as])){
