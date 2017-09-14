@@ -51,6 +51,13 @@ class RangeAggs extends Aggs{
                 }
 
                 if (!isset($tmp)) { continue; }
+                if (isset($value['key'])) {
+                    $tmp['key'] = $value['key'];
+                } else {
+                    $tmp['key'] = !isset($tmp['from']) ? '*' : $tmp['from'];
+                    $tmp['key'] .= "-";
+                    $tmp['key'] .= !isset($tmp['to']) ? "*" : $tmp['to'];
+                }
                 $validRanges[] = $tmp;
                 unset($tmp);
             }
@@ -58,7 +65,8 @@ class RangeAggs extends Aggs{
             $validRanges = array(
                 array(
                     "from" => null,
-                    "to" => null
+                    "to" => null,
+                    'key' => '*-*',
                 )
             );
         } else {

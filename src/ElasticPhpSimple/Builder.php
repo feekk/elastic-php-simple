@@ -52,7 +52,7 @@ class Builder{
         $this->from = $from;
         $this->size = $size;
         if($this->from < 0 || $this->size < 0){
-            throw new \Exceptions('offset from and size must be > 0');
+            throw new \Exception('offset from and size must be > 0');
         }
         if($this->from > self::MaxLimit){
             $this->from = self::MaxLimit; 
