@@ -2,25 +2,13 @@
 
 **elastic-php-simple** is a simple elasticsearch dsl builder for php.
 
-**elastic-php-simple** 是一个php版本的 elasticsearch dsl构建器。
-
 # descrpition
 
-There are two different libraries：Builder and Model。
+There are two different libraries：Buider and Model。
 
-包里有2个不同的类：Builder 和 Model。
-
-**Builder** is original , builder dsl without index, you should add by self
-
-**Builder** 是原生的构建包，可以构建原生的dsl语句（只构建dsl，需要额外自己添加index名称等）
-
-Notice: offset haved been set maxLimit= 10000, if you need more, change by yourself.
-
-注意： offset 已经被设置最大的长度为10000条，如果你需要更大的数据，可以通过修改MaxLimit。
+**Builder** is original 
 
 **Model** is package from **Builder** than can be extended by other schema model
-
-**Model** 是对Builder的一个封装，可以通过对其继承直接使用。
 
 # Usage
 
@@ -70,8 +58,6 @@ Notice: offset haved been set maxLimit= 10000, if you need more, change by yours
             $this->getMertics();
         }   
 
-        //sort by response result column
-        //获取列表,可以对获取回来的值进行排序
         public function getList($orderName = '', $orderType = ''){
             $this->getParams();
             $dsl = $this->dsl();
@@ -79,8 +65,7 @@ Notice: offset haved been set maxLimit= 10000, if you need more, change by yours
             $parse = new ResultParse($this);
             return $parse->getList($orderName, $orderType);
         }   
-        //get aggs response result
-        //获取返回聚合值
+
         public function getAggs(){
             $this->getParams();
             $dsl = $this->dsl();
@@ -109,15 +94,6 @@ Notice: offset haved been set maxLimit= 10000, if you need more, change by yours
     }
     
     class UserModel extends EsModel{ 
-        protected static $_model = null; 
-        //es index es索引名称
-        public function esIndex(){
-            return "index";
-        }
-        //es type es type内容
-        public function esType(){
-            return "type"
-        }
         public function _Fileds(){
             return [
                 'Id'=>'',
@@ -138,8 +114,6 @@ Notice: offset haved been set maxLimit= 10000, if you need more, change by yours
 
 #API
 
-#API提供了简单的功能函数
-
 ##Builder
 
 ###conditions
@@ -159,22 +133,6 @@ Notice: offset haved been set maxLimit= 10000, if you need more, change by yours
      * return array condition dsl
      */
     function notMatch(string $name, string $value)
-
-**`term`**
-
-    /**
-     * equal condition (exact)
-     * return array condition dsl
-     */
-    function term(string $name, string $value)
-    
-**`notTerm`**
-
-    /**
-     * not equal condition (exact)
-     * return array condition dsl
-     */
-    function notTerm(string $name, string $value)
     
 **`in`**
 
@@ -466,29 +424,24 @@ $model->match('m', 5)->withOuter('a', 'or');
 $model->match('d', 6)->withOuter('a', 'and');
 
     **//$a change once more!!!!**
-    $a=array(
+    $a=array(       
         '_and'=>array(
             array(
-                '_and'=>array(
+                '_or'=>array(
                     array(
-                        '_or'=>array(
+                        '_and'=>array(
                             array(
-                                '_and'=>array(
-                                    array(
-                                        'field'=>'a',
-                                        'value'=>3,
-                                        'type'=>'match'
-                                    ),
-                                    $c
-                                )
+                                'field'=>'a',
+                                'value'=>3,
+                                'type'=>'match'
                             ),
-                            $m
+                            $c
                         )
                     ),
-                    $b
+                    $m
                 )
             ),
-            $d
+            $b
         )
     )
         
@@ -513,29 +466,23 @@ $model->match('h', 8)-> withInner('d', 'or');
     $a=array(
         '_and'=>array(
             array(
-                '_and'=>array(
+                '_or'=>array(
                     array(
-                        '_or'=>array(
+                        '_and'=>array(
                             array(
-                                '_and'=>array(
-                                    array(
-                                        'field'=>'a',
-                                        'value'=>3,
-                                        'type'=>'match'
-                                    ),
-                                    $c
-                                )
+                                'field'=>'a',
+                                'value'=>3,
+                                'type'=>'match'
                             ),
-                            $m
+                            $c
                         )
                     ),
-                    $b
+                    $m
                 )
             ),
-            $d
+            $b
         )
     )
-    
         
     $c = array(
         'field'=>'c',
