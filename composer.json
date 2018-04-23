@@ -10,9 +10,7 @@
         }
     ],
     "homepage": "https://github.com/feekk",
-    "require":{
-        "php": ">=5.4.0"
-    },
+    "require":{},
     "autoload":{
         "psr-4":{
            "ElasticPhpSimple\\": "src/"
