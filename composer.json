@@ -1,0 +1,21 @@
+{
+    "name": "feekk/elastic-php-simple",
+    "description": "A ElasticSearch PHP Dsl builder",
+    "license": "MIT",
+    "keywords": ["elastic", "php", "dsl"],
+    "authors": [
+        {
+            "name": "feekk",
+            "email": "feek.shell@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/feekk",
+    "require":{
+        "php": ">=5.4.0"
+    },
+    "autoload":{
+        "psr-4":{
+           "ElasticPhpSimple\\": "src/"
+        }
+    },
+}
