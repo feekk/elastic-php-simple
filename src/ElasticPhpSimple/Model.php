@@ -212,7 +212,8 @@ class Model{
         return $conditions;
     }
     protected function call($data){
-       return $this->_builder->$data[2]($data[0] ,$data[1]); 
+        $func = $data[2];
+        return $this->_builder->$func($data[0] ,$data[1]); 
     }
     public function __set($name ,$value){
         $this->$name = $value;
