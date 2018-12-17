@@ -2,7 +2,7 @@
 namespace ElasticPhpSimple\Base;
 
 use ElasticPhpSimple\Type;
-use EElasticPhpSimple\ElasticPhpSimpleException;
+use ElasticPhpSimple\ElasticPhpSimpleException;
 
 class Range{
     protected $name = Type::ERANGE;
